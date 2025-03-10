@@ -50,11 +50,18 @@ const sendMessage=async (req,res)=>{
         })
         await newMessage.save();
         const receiverSocketId=getReceiverSocketId(receiverId);
+        io.on('sendMessage',message=>{
+          io.to(socket.id).emit('newMessage',message);
+            if(receiverId){
+                io.to(receiverSocketId).emit('newMessage',message);
+            }
+        })
         
         if(receiverSocketId){
+            
             io.to(receiverSocketId).emit("newMessage",newMessage)
         }
-        res.status(200).json({newMessage})
+        res.status(200).json(newMessage)
     }
     catch(e){
         console.log("error in send message",e.message)

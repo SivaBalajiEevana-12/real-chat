@@ -22,13 +22,7 @@ io.on("connection",(socket)=>{
         const userId=socket.handshake.query.userId;
         if(userId) userSocketMap[userId]=socket.id;
         io.emit("getOnlineUsers",Object.keys(userSocketMap))//broadcast all users
-        socket.on('sendMessage',message=>{
-            const receiverId=getReceiverSocketId(message.receiverId)
-            if(receiverId){
-                io.to(receiverId).emit('newMessage',data);
-            }
-
-        })//socket.emit("sendMessage", result.data);
+        // })//socket.emit("sendMessage", result.data);
     socket.on("disconnect",()=>{
         console.log("A user is disconnected",socket.id)
         delete userSocketMap[userId];

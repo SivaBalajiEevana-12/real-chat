@@ -78,7 +78,7 @@ login:async(data)=>{
         get().connectSocket();
     }
     catch(e){
-        toast.error(e.response.data.message); 
+        toast.error("e.response.data.message",e); 
     }
     finally{
         set({isLoggingIn:false})
@@ -126,4 +126,4 @@ updateProfile:async(data)=>
     }}
 }))
 
-export default AuthStore
+export default AuthStore;
